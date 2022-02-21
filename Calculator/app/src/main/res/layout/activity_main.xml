@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/equation_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:text="TextView"
+                android:gravity="center_vertical|right"
+                android:padding="10dp"
+                android:textSize="55dp"/>
+            <TextView
+                android:id="@+id/result_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="TextView"
+                android:padding="10dp"
+                android:gravity="center_vertical|right"
+                android:textSize="40dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">>
+
+            <LinearLayout
+                android:id="@+id/main_panel"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/seven"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="7" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/eight"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="8" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/nine"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="9" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/four"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="4" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/five"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="5" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/six"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="6" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/one"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:text="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/two"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="2" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/three"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    style="@style/main_panel_button"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/zero"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="0" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/comma"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="." />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/equals"
+                        android:layout_width="0dip"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        style="@style/main_panel_button"
+                        android:onClick="buttonClick"
+                        android:text="=" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/operations_panel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/main_panel"
+                app:layout_constraintLeft_toRightOf="@+id/main_panel"
+                app:layout_constraintTop_toTopOf="@id/main_panel">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    style="@style/operations_panel_button"
+                    android:onClick="buttonClick"
+                    android:text="⌫" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/divide"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    style="@style/operations_panel_button"
+                    android:onClick="buttonClick"
+                    android:text="÷" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/multiply"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    style="@style/operations_panel_button"
+                    android:onClick="buttonClick"
+                    android:text="×" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/minus"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    style="@style/operations_panel_button"
+                    android:onClick="buttonClick"
+                    android:text="-" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/plus"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    style="@style/operations_panel_button"
+                    android:onClick="buttonClick"
+                    android:text="+" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/more_operations_panel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="⟨"
+                    style="@style/more_operations_panel_button">
+
+                </androidx.appcompat.widget.AppCompatButton>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
