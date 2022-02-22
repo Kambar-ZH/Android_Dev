@@ -2,9 +2,12 @@ package com.example.codeforces
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -159,6 +162,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val mToolbar = findViewById<Toolbar>(R.id.my_toolbar);
+        setSupportActionBar(mToolbar);
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun displayEquation(text: String) {
