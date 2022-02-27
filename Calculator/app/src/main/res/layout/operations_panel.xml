@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delete"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        style="@style/operations_panel_button"
+        android:onClick="buttonClick"
+        android:text="@string/delete" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/divide"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        style="@style/operations_panel_button"
+        android:onClick="buttonClick"
+        android:text="@string/divide" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/multiply"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        style="@style/operations_panel_button"
+        android:onClick="buttonClick"
+        android:text="@string/multiply" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/minus"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        style="@style/operations_panel_button"
+        android:onClick="buttonClick"
+        android:text="@string/minus" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/plus"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        style="@style/operations_panel_button"
+        android:onClick="buttonClick"
+        android:text="@string/plus" />
+
+</LinearLayout>

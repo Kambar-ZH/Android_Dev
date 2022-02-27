@@ -58,12 +58,10 @@
 
             <RelativeLayout
                 android:id="@+id/main_panel"
-                android:layout_width="0dp"
-                android:layout_weight="3"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/seven"
@@ -75,21 +73,21 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/eight"
+                    style="@style/main_panel_button"
                     android:layout_width="100dp"
                     android:layout_height="110dp"
-                    style="@style/main_panel_button"
+                    android:layout_toRightOf="@id/seven"
                     android:onClick="buttonClick"
-                    android:text="@string/eight"
-                    android:layout_toRightOf="@id/seven"/>
+                    android:text="@string/eight" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/nine"
+                    style="@style/main_panel_button"
                     android:layout_width="100dp"
                     android:layout_height="110dp"
-                    style="@style/main_panel_button"
+                    android:layout_toRightOf="@id/eight"
                     android:onClick="buttonClick"
-                    android:text="@string/nine"
-                    android:layout_toRightOf="@id/eight"/>
+                    android:text="@string/nine" />
 
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -103,23 +101,23 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/five"
+                    style="@style/main_panel_button"
                     android:layout_width="100dp"
                     android:layout_height="110dp"
-                    style="@style/main_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/five"
                     android:layout_below="@id/eight"
-                    android:layout_toRightOf="@id/four"/>
+                    android:layout_toRightOf="@id/four"
+                    android:onClick="buttonClick"
+                    android:text="@string/five" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/six"
+                    style="@style/main_panel_button"
                     android:layout_width="100dp"
                     android:layout_height="110dp"
-                    style="@style/main_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/six"
                     android:layout_below="@id/seven"
-                    android:layout_toRightOf="@id/five"/>
+                    android:layout_toRightOf="@id/five"
+                    android:onClick="buttonClick"
+                    android:text="@string/six" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/one"
@@ -183,74 +181,26 @@
                     android:layout_toRightOf="@id/comma"/>
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/operations_panel"
+            <include layout="@layout/operations_panel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@id/main_panel"
-                app:layout_constraintLeft_toRightOf="@+id/main_panel"
-                app:layout_constraintTop_toTopOf="@id/main_panel">
+                android:id="@+id/operations_panel" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/delete"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    style="@style/operations_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/delete" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/divide"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    style="@style/operations_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/divide" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/multiply"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    style="@style/operations_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/multiply" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/minus"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    style="@style/operations_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/minus" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/plus"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    style="@style/operations_panel_button"
-                    android:onClick="buttonClick"
-                    android:text="@string/plus" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/more_operations_panel"
+            <include layout="@layout/more_operations_panel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:orientation="vertical">
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/arrow"
-                    style="@style/more_operations_panel_button"/>
-            </LinearLayout>
+                android:layout_weight="0"
+                android:id="@+id/more_operations_panel" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/more_operations_panel_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:text="@string/left_arrow"
+                style="@style/more_operations_panel_button"/>
+
         </LinearLayout>
     </LinearLayout>
 
