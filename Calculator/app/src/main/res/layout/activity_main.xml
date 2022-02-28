@@ -185,13 +185,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/operations_panel" />
+                android:visibility="visible"
+                android:id="@+id/operations_panel"/>
 
             <include layout="@layout/more_operations_panel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:id="@+id/more_operations_panel" />
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:id="@+id/more_operations_panel"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/more_operations_panel_button"

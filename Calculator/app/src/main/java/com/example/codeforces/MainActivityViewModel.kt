@@ -32,7 +32,7 @@ class MainActivityViewModel : ViewModel() {
             State.Zero -> processZeroState(message, false)
             State.AccumulateDigit -> processAccumulateDigitState(message, false)
             State.ComputePending -> processComputePendingState(message, false)
-            State.Compute -> processComputePendingState(message, true)
+            State.Compute -> processAccumulateDigitState(message, false)
             State.Separator -> processSeparatorState(message, false)
             State.Clear -> processClearState(message, false)
         }
