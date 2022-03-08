@@ -1,7 +1,9 @@
 package com.example.codeforces
 
-import android.opengl.Visibility
+import android.app.Activity
+import android.content.res.Configuration
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,45 +12,79 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
-import java.util.*
+import com.example.codeforces.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
-        val mToolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(mToolbar)
+        handleOrientation(this.resources.configuration.orientation)
 
-        var button = findViewById<Button>(R.id.more_operations_panel_button)
+        setSupportActionBar(binding.toolbar)
+
+        setMoreOperationsListener()
+
+        setScrollingTextViews()
+    }
+
+    private fun setMoreOperationsListener() {
+        val button = binding.moreOperationsPanelButton
         button.setOnClickListener {
-            var operationsPanel = findViewById<LinearLayout>(R.id.operations_panel)
-            var moreOperationsPanel = findViewById<LinearLayout>(R.id.more_operations_panel)
+            val operationsPanel = binding.operationsPanel.root
+            val moreOperationsPanel = binding.moreOperationsPanel.root
+
             toggleButton(button)
             toggleVisibility(operationsPanel)
             toggleVisibility(moreOperationsPanel)
         }
     }
 
-    private fun toggleButton(button: Button) {
-        if (button.text == "⟨") {
-            button.text = "⟩"
-        } else {
-            button.text = "⟨"
-        }
+    private fun setScrollingTextViews() {
+        binding.equationTextView.movementMethod = ScrollingMovementMethod()
+        binding.resultTextView.movementMethod = ScrollingMovementMethod()
     }
 
-    private fun toggleVisibility(linearLayout: LinearLayout) {
-        if (linearLayout.visibility == View.GONE) {
-            linearLayout.visibility = View.VISIBLE
-        } else {
-            linearLayout.visibility = View.GONE
+    private fun toggleButton(button: Button) {
+        button.text = if (button.text == getString(R.string.left_arrow)) getString(R.string.right_arrow) else getString(R.string.left_arrow)
+    }
+
+    private fun toggleVisibility(view: View) {
+        view.visibility = if (view.visibility == View.GONE) View.VISIBLE else View.GONE
+    }
+
+    fun buttonClick(view: View) {
+        viewModel.processSignal(view.id)
+
+        binding.equationTextView.text = viewModel.equationText
+
+        binding.resultTextView.text = viewModel.resultText
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        handleOrientation(newConfig.orientation)
+    }
+
+    private fun handleOrientation(orientation: Int) {
+        if (orientation === Configuration.ORIENTATION_LANDSCAPE) {
+            binding.moreOperationsPanelButton.visibility = View.GONE
+            binding.operationsPanel.root.visibility = View.VISIBLE
+            binding.moreOperationsPanel.root.visibility = View.VISIBLE
+        } else if (orientation === Configuration.ORIENTATION_PORTRAIT) {
+            binding.moreOperationsPanelButton.visibility = View.VISIBLE
+            binding.operationsPanel.root.visibility = View.VISIBLE
+            binding.moreOperationsPanel.root.visibility = View.GONE
         }
     }
 
@@ -57,21 +93,15 @@ class MainActivity : AppCompatActivity() {
         return true;
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // TODO
-        return super.onOptionsItemSelected(item)
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("equationText", binding.equationTextView.text.toString())
+        outState.putString("resultText", binding.resultTextView.text.toString())
+        super.onSaveInstanceState(outState)
     }
 
-    fun buttonClick(view: View) {
-        val button = view as Button
-        val text = button.text;
-
-        viewModel.processSignal(text.toString())
-
-        val equationText = findViewById<TextView>(R.id.equation_text_view)
-        equationText.text = viewModel.equationText
-
-        val resultText = findViewById<TextView>(R.id.result_text_view)
-        resultText.text = viewModel.resultText
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        binding.equationTextView.text = savedInstanceState.getString("equationText")
+        binding.resultTextView.text = savedInstanceState.getString("resultText")
+        super.onRestoreInstanceState(savedInstanceState)
     }
 }

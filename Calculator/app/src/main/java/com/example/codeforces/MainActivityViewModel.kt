@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import java.util.*
 import kotlin.math.pow
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel() : ViewModel() {
 
     enum class State {
         Zero, AccumulateDigit, ComputePending, Compute, Separator, Clear
@@ -20,14 +20,37 @@ class MainActivityViewModel : ViewModel() {
     private var separators = arrayOf(".")
     private var clear = arrayOf("⌫")
 
-    private var operationPriority: Map<String, Int> = mapOf("+" to 1, "-" to 1, "×" to 2, "÷" to 2, "%" to 3, "^" to 4)
+    private var operationPriority = mapOf("+" to 1, "-" to 1, "×" to 2, "÷" to 2, "%" to 3, "^" to 4)
 
     private var stackOfNumbers: Stack<String> = Stack<String>()
     private var stackOfOperations: Stack<String> = Stack<String>()
 
     private var currentState: State = State.Zero
 
-    fun processSignal(message: String) {
+    private var convertIdToMessage = mapOf(
+        R.id.one to "1",
+        R.id.two to "2",
+        R.id.three to "3",
+        R.id.four to "4",
+        R.id.five to "5",
+        R.id.six to "6",
+        R.id.seven to "7",
+        R.id.eight to "8",
+        R.id.nine to "9",
+        R.id.zero to "0",
+        R.id.equals to "=",
+        R.id.minus to "-",
+        R.id.plus to "+",
+        R.id.multiply to "×",
+        R.id.divide to "÷",
+        R.id.comma to ".",
+        R.id.power to "^",
+        R.id.mod to "%",
+        R.id.delete to "⌫"
+    )
+
+    fun processSignal(id: Int) {
+        val message: String = convertIdToMessage[id]!!
         when (currentState) {
             State.Zero -> processZeroState(message, false)
             State.AccumulateDigit -> processAccumulateDigitState(message, false)
@@ -75,7 +98,7 @@ class MainActivityViewModel : ViewModel() {
             when {
                 digits.contains(msg) -> processAccumulateDigitState(msg, true)
                 operations.contains(msg) -> processComputePendingState(msg, true)
-                equals.contains(msg) -> processComputeState(msg, true)
+                equals.contains(msg) -> processComputeState(true)
                 separators.contains(msg) -> processSeparatorState(msg, true)
                 clear.contains(msg) -> processClearState(msg, true)
             }
@@ -91,11 +114,15 @@ class MainActivityViewModel : ViewModel() {
                 appendToEquationDisplay(msg)
             }
         } else {
-            if (digits.contains(msg)) {
-                processAccumulateDigitState(msg, true)
-            }
-            if (clear.contains(msg)) {
-                processClearState(msg, true)
+            when {
+                digits.contains(msg) -> processAccumulateDigitState(msg, true)
+                clear.contains(msg) -> processClearState(msg, true)
+                operations.contains(msg) -> {
+                    stackOfOperations.pop()
+                    stackOfNumbers.pop()
+                    popTextOfEquationDisplay()
+                    processComputePendingState(msg, true)
+                }
             }
         }
     }
@@ -120,42 +147,49 @@ class MainActivityViewModel : ViewModel() {
             "-" -> (a - b).toString()
             "×" -> (a * b).toString()
             "÷" -> (a / b).toString()
-            "%" -> (a % b).toString()
+            "%" -> (a.mod(b)).toString()
             "^" -> (a.pow(b)).toString()
             else -> "0"
         }
     }
 
-    private fun processComputeState(msg: String, incoming: Boolean) {
+    private fun processComputeState(incoming: Boolean) {
         if (incoming) {
             currentState = State.Compute
+
             while (stackOfNumbers.count() > 1) {
+                val curNum = stackOfNumbers.peek().toFloat()
+                stackOfNumbers.pop()
+
                 val curOp = stackOfOperations.peek()
                 stackOfOperations.pop()
+
                 while (stackOfOperations.isNotEmpty()) {
                     val nextOp = stackOfOperations.peek()
+
                     if (operationPriority[nextOp]!! < operationPriority[curOp]!!) {
                         break
                     }
-                    val b = stackOfNumbers.peek().toFloat()
-                    stackOfNumbers.pop()
-                    val a = stackOfNumbers.peek().toFloat()
+
+                    val nextNum = stackOfNumbers.peek().toFloat()
                     stackOfNumbers.pop()
 
-                    val result = computeOperation(a, b, nextOp)
+                    val nextNextNum = stackOfNumbers.peek().toFloat()
+                    stackOfNumbers.pop()
 
+                    val result = computeOperation(nextNextNum, nextNum, nextOp)
                     stackOfNumbers.push(result)
+
                     stackOfOperations.pop()
                 }
-                val b = stackOfNumbers.peek().toFloat()
-                stackOfNumbers.pop()
-                val a = stackOfNumbers.peek().toFloat()
+
+                val nextNum = stackOfNumbers.peek().toFloat()
                 stackOfNumbers.pop()
 
-                val result = computeOperation(a, b, curOp)
-
+                val result = computeOperation(nextNum, curNum, curOp)
                 stackOfNumbers.push(result)
             }
+
             updateResultDisplay(stackOfNumbers.peek())
             updateEquationDisplay(stackOfNumbers.peek())
         }
@@ -167,6 +201,10 @@ class MainActivityViewModel : ViewModel() {
 
     private fun appendToEquationDisplay(text: String) {
         equationText += text
+    }
+
+    private fun popTextOfEquationDisplay() {
+        equationText = equationText.dropLast(1)
     }
 
     private fun updateEquationDisplay(text: String) {

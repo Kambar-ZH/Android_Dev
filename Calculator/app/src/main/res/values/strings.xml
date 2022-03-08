@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Calculator</string>
     <string name="left_arrow">⟨</string>
+    <string name="right_arrow">⟩</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -20,4 +21,5 @@
     <string name="power">^</string>
     <string name="equals">=</string>
     <string name="comma">.</string>
+    <string name="empty" />
 </resources>
