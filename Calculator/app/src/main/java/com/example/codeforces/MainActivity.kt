@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.example.codeforces.databinding.ActivityMainBinding
+import com.example.codeforces.databinding.DisplayBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setScrollingTextViews() {
-        binding.equationTextView.movementMethod = ScrollingMovementMethod()
-        binding.resultTextView.movementMethod = ScrollingMovementMethod()
+        binding.displayPanel.equationTextView.movementMethod = ScrollingMovementMethod()
+        binding.displayPanel.resultTextView.movementMethod = ScrollingMovementMethod()
     }
 
     private fun toggleButton(button: Button) {
@@ -66,9 +67,8 @@ class MainActivity : AppCompatActivity() {
     fun buttonClick(view: View) {
         viewModel.processSignal(view.id)
 
-        binding.equationTextView.text = viewModel.equationText
-
-        binding.resultTextView.text = viewModel.resultText
+        binding.displayPanel.equationTextView.text = viewModel.equationText
+        binding.displayPanel.resultTextView.text = viewModel.resultText
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -94,14 +94,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("equationText", binding.equationTextView.text.toString())
-        outState.putString("resultText", binding.resultTextView.text.toString())
+        outState.putString("equationText", binding.displayPanel.equationTextView.text.toString())
+        outState.putString("resultText", binding.displayPanel.resultTextView.text.toString())
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        binding.equationTextView.text = savedInstanceState.getString("equationText")
-        binding.resultTextView.text = savedInstanceState.getString("resultText")
+        binding.displayPanel.equationTextView.text = savedInstanceState.getString("equationText")
+        binding.displayPanel.resultTextView.text = savedInstanceState.getString("resultText")
         super.onRestoreInstanceState(savedInstanceState)
     }
 }
