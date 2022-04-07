@@ -13,10 +13,8 @@ import com.example.todolist.databinding.FragmentTodoListBinding
 import com.example.todolist.model.Todo
 import com.google.gson.Gson
 
-class TodoListFragment : Fragment() {
+class TodoListFragment(private val db: AppDatabase, private val todoDao: TodoDao) : Fragment() {
 
-    private lateinit var db: AppDatabase
-    private lateinit var todoWithCategoryDao: TodoDao
     private lateinit var todos: List<Todo>
     private lateinit var binding: FragmentTodoListBinding
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -34,9 +32,7 @@ class TodoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db = MainApplication.instance.getDatabase()!!
-        todoWithCategoryDao = db.todoDao()
-        todos = todoWithCategoryDao.getAll()
+        todos = todoDao.getAll()
 
         layoutManager = LinearLayoutManager(activity)
         Log.e("result", todos.toString())
@@ -48,9 +44,9 @@ class TodoListFragment : Fragment() {
 
     private fun showTodoDetails(todo: Todo) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
-        var bundle = Bundle()
+        val bundle = Bundle()
         bundle.putString("todo", Gson().toJson(todo))
-        var todoDetailFragment = TodoDetailFragment()
+        val todoDetailFragment = TodoDetailFragment(db, todoDao)
         todoDetailFragment.arguments = bundle
         transaction?.replace(R.id.flFragment, todoDetailFragment)
         transaction?.addToBackStack("todo-details")

@@ -3,6 +3,7 @@ package com.example.todolist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.model.Todo
@@ -26,7 +27,7 @@ class RecyclerAdapter(
             } else {
                 holder.todoStatus.text = holder.itemView.context.getString(R.string.completed)
             }
-            holder.itemView.setOnClickListener {
+            holder.markButton.setOnClickListener {
                 clickHandler(this)
             }
         }
@@ -40,5 +41,6 @@ class RecyclerAdapter(
         var todoId: TextView = todoView.findViewById(R.id.todo_id)
         var todoTitle: TextView = todoView.findViewById(R.id.todo_title)
         var todoStatus: TextView = todoView.findViewById(R.id.todo_status)
+        var markButton: Button = todoView.findViewById(R.id.mark)
     }
 }
