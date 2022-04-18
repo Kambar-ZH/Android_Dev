@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Educational Platform</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="course_list_is_loading">Course list is loading. Please wait for a moment.</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="created">Created:</string>
+    <string name="zero">0</string>
+    <string name="created_time">2022-04-16</string>
+    <string name="likes">Likes:</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signup_banner">Please sign up to continue</string>
+    <string name="password_confirmation">Password confirmation</string>
+    <string name="login_banner">Please login to continue</string>
+    <string name="signup">Sign up</string>
+    <string name="login">Login</string>
+    <string name="not_registered">Not registered yet?</string>
+</resources>
