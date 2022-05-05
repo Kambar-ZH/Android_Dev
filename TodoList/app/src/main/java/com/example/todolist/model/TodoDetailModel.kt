@@ -18,7 +18,6 @@ class TodoDetailModel(var todoId: Int) : TodoDetailInterface.ModelInterface {
                 call: Call<Todo>,
                 response: Response<Todo>
             ) {
-                Log.e(Todo::class.java.simpleName, response.toString())
                 todo = response.body()
                 updateValue()
             }

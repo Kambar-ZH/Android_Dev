@@ -22,7 +22,6 @@ class TodoListModel : TodoListInterface.ModelInterface {
                 call: Call<ArrayList<Todo>>,
                 response: Response<ArrayList<Todo>>
             ) {
-                Log.e(Todo::class.java.simpleName, response.toString())
                 todoList = response.body()
                 updateList()
             }

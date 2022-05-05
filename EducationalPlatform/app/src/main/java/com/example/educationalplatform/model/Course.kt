@@ -1,25 +1,30 @@
 package com.example.educationalplatform.model
 
+import com.google.gson.annotations.SerializedName
+
 class Course(
+    @SerializedName("id")
     var id: Int,
+    @SerializedName("title")
     var title: String,
+    @SerializedName("description")
     var description: String,
+    @SerializedName("created")
     var created: String,
+    @SerializedName("likes")
     var likes: Int,
+    @SerializedName("category")
+    var category: Int,
+    @SerializedName("publisher_name")
+    var publisherName: String,
+    @SerializedName("likes_count")
+    var likesCount: Int
 ) {
     override fun equals(other: Any?): Boolean =
         other is Course &&
-                other.title == title &&
-                other.description == description &&
-                other.created == created &&
-                other.likes == likes
+                other.id == id
 
     override fun hashCode(): Int {
-        var result = id
-        result = 31 * result + title.hashCode()
-        result = 31 * result + description.hashCode()
-        result = 31 * result + created.hashCode()
-        result = 31 * result + likes
-        return result
+        return id
     }
 }
