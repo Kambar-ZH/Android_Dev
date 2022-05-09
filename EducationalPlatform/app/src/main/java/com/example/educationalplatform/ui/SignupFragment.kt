@@ -10,21 +10,17 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.educationalplatform.R
-import com.example.educationalplatform.api.AuthService
-import com.example.educationalplatform.api.createAuthService
-import com.example.educationalplatform.databinding.FragmentLoginBinding
+import com.example.educationalplatform.data.api.AuthService
+import com.example.educationalplatform.data.api.createAuthService
 import com.example.educationalplatform.databinding.FragmentSignupBinding
-import com.example.educationalplatform.model.UserForm
+import com.example.educationalplatform.data.api.model.UserForm
 import com.example.educationalplatform.respository.AuthRepository
 import com.example.educationalplatform.view_model.AuthViewModel
 import com.example.educationalplatform.view_model.AuthViewModelFactory
 
 class SignupFragment : Fragment() {
     private lateinit var binding: FragmentSignupBinding
-    private lateinit var repository: AuthRepository
     private lateinit var viewModel: AuthViewModel
-    private lateinit var service: AuthService
-    private lateinit var viewModelFactory: AuthViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +30,13 @@ class SignupFragment : Fragment() {
 
         configureViewModel()
 
-        viewModel.signupResponse.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccessful) {
-                Toast.makeText(context, "Registration completed! Now please login.", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-            } else {
-                Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_SHORT).show()
-            }
+        viewModel.signupResponse.observe(viewLifecycleOwner) {
+            Toast.makeText(context, "Registration completed! Now please login.", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
 
         binding.signupButton.setOnClickListener {
@@ -52,9 +48,9 @@ class SignupFragment : Fragment() {
     }
 
     private fun configureViewModel() {
-        service = createAuthService()
-        repository = AuthRepository(service)
-        viewModelFactory = AuthViewModelFactory(repository = repository)
+        val service = createAuthService()
+        val repository = AuthRepository(service)
+        val viewModelFactory = AuthViewModelFactory(repository = repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[AuthViewModel::class.java]
     }
 

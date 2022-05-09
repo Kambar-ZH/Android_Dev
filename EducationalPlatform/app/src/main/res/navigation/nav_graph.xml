@@ -18,7 +18,11 @@
         android:id="@+id/topicFragment"
         android:name="com.example.educationalplatform.ui.TopicFragment"
         android:label="fragment_topic"
-        tools:layout="@layout/fragment_topic" />
+        tools:layout="@layout/fragment_topic" >
+        <action
+            android:id="@+id/action_topicFragment_to_stepFragment"
+            app:destination="@id/stepFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.educationalplatform.ui.LoginFragment"
@@ -39,4 +43,9 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/stepFragment"
+        android:name="com.example.educationalplatform.ui.StepFragment"
+        android:label="fragment_step"
+        tools:layout="@layout/fragment_step" />
 </navigation>

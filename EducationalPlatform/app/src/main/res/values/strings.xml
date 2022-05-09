@@ -5,10 +5,10 @@
     <string name="course_list_is_loading">Course list is loading. Please wait for a moment.</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="created">Created:</string>
+    <string name="created_with_colon">Created:</string>
     <string name="zero">0</string>
     <string name="created_time">2022-04-16</string>
-    <string name="likes">Likes:</string>
+    <string name="likes_with_colon">Likes:</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -19,4 +19,16 @@
     <string name="login">Login</string>
     <string name="not_registered">Not registered yet?</string>
     <string name="id">Id</string>
+    <string name="topic_list_is_loading">Topic list is loading. Please wait a moment.</string>
+    <string name="step_list_with_colon">Step List:</string>
+    <string name="category">Category</string>
+    <string name="publisher_with_colon">Publisher:</string>
+    <string name="publisher_name">Kambar</string>
+    <string name="step_description">Step description</string>
+    <string name="views_with_colon">Views:</string>
+    <string name="step">Step</string>
+    <string name="step_with_colon">Step:</string>
+    <string name="description_with_colon">Description:</string>
+    <string name="course_content_with_colon">Course content:</string>
+    <string name="like_course">Like Course</string>
 </resources>

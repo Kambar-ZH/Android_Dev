@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.educationalplatform.R
-import com.example.educationalplatform.model.Topic
+import com.example.educationalplatform.data.api.model.Topic
 
-class TopicAdapter():
+class TopicAdapter(private val selectListener: StepSelectListener) :
     ListAdapter<Topic, TopicAdapter.ViewHolder>(DIFF_CONFIG) {
     companion object {
         val DIFF_CONFIG = object : DiffUtil.ItemCallback<Topic>() {
@@ -28,29 +29,32 @@ class TopicAdapter():
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout., parent, false)
-        return ViewHolder(v)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.topic_layout, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val topic = getItem(position)
+        holder.bind(topic)
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemTitle: TextView = itemView.findViewById(R.id.title)
-        var itemDescription: TextView = itemView.findViewById(R.id.description)
-        var itemCreated: TextView = itemView.findViewById(R.id.created_time)
-        var itemLikes: TextView = itemView.findViewById(R.id.likes)
+        var itemId: TextView = itemView.findViewById(R.id.id)
+        var itemSteps: RecyclerView = itemView.findViewById(R.id.step_recycler_view)
 
-        fun bind(course: Topic) {
-            itemTitle.text = course.title
-            itemDescription.text = course.description
-            itemCreated.text = course.created
-            itemLikes.text = course.likes.toString()
+        fun bind(topic: Topic) {
+            itemId.text = topic.id.toString()
+            itemTitle.text = topic.title
+
+            itemSteps.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = StepAdapter(selectListener)
+            itemSteps.adapter = adapter
+            adapter.submitList(topic.steps)
         }
     }
+
     override fun submitList(list: List<Topic>?) {
         super.submitList(list?.let { ArrayList(it) })
     }
-
 }

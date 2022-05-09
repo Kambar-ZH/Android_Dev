@@ -1,7 +1,7 @@
 package com.example.educationalplatform.respository
 
-import com.example.educationalplatform.api.TopicService
-import com.example.educationalplatform.model.Topic
+import com.example.educationalplatform.data.api.TopicService
+import com.example.educationalplatform.data.api.model.Topic
 import retrofit2.Response
 
 class TopicRepository(private val service: TopicService) {

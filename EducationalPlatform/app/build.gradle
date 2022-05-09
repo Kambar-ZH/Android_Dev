@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -72,4 +73,11 @@ dependencies {
 
     // Material Design
     implementation 'com.google.android.material:material:1.5.0'
+
+    // Coil
+    implementation("io.coil-kt:coil:2.0.0-rc03")
+
+    // Room
+    implementation 'androidx.room:room-runtime:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.2'
 }

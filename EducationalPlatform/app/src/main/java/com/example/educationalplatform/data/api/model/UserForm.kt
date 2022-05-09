@@ -1,8 +1,8 @@
-package com.example.educationalplatform.model
+package com.example.educationalplatform.data.api.model
 
 import com.google.gson.annotations.SerializedName
 
-class UserForm (
+class UserForm(
     @SerializedName("username")
     var username: String,
     @SerializedName("email")

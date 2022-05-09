@@ -1,9 +1,9 @@
-package com.example.educationalplatform.api
+package com.example.educationalplatform.data.api
 
 import com.example.educationalplatform.interceptors.AuthInterceptor
-import com.example.educationalplatform.model.AuthToken
-import com.example.educationalplatform.model.Credentials
-import com.example.educationalplatform.model.UserForm
+import com.example.educationalplatform.data.api.model.AuthToken
+import com.example.educationalplatform.data.api.model.Credentials
+import com.example.educationalplatform.data.api.model.UserForm
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit

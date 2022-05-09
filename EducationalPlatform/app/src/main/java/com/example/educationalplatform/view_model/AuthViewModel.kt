@@ -1,31 +1,44 @@
 package com.example.educationalplatform.view_model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.educationalplatform.model.AuthToken
-import com.example.educationalplatform.model.Credentials
-import com.example.educationalplatform.model.UserForm
+import com.example.educationalplatform.data.api.model.AuthToken
+import com.example.educationalplatform.data.api.model.Credentials
+import com.example.educationalplatform.data.api.model.UserForm
+import com.example.educationalplatform.globals.AppPreferences
 import com.example.educationalplatform.respository.AuthRepository
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class AuthViewModel(private val repository: AuthRepository): ViewModel() {
-    val loginResponse: MutableLiveData<Response<AuthToken>> = MutableLiveData()
-    val signupResponse: MutableLiveData<Response<Void>> = MutableLiveData()
+    val errorMessage = MutableLiveData<String>()
+    val loginResponse: MutableLiveData<AuthToken> = MutableLiveData()
+    val signupResponse: MutableLiveData<Void> = MutableLiveData()
 
     fun signup(userForm: UserForm) {
         viewModelScope.launch {
             val response = repository.signup(userForm=userForm)
-            signupResponse.value = response
+            if (response.isSuccessful) {
+                signupResponse.value = response.body()
+            } else {
+                errorMessage.value = response.message()
+            }
         }
     }
 
     fun login(credentials: Credentials) {
         viewModelScope.launch {
             val response = repository.login(credentials=credentials)
-            loginResponse.value = response
+            if (response.isSuccessful) {
+                val authToken = response.body()
+                if (authToken != null) {
+                    AppPreferences.accessToken = authToken.access
+                    AppPreferences.refreshToken = authToken.refresh
+                }
+                loginResponse.value = response.body()
+            } else {
+                errorMessage.value = response.message()
+            }
         }
     }
 }
