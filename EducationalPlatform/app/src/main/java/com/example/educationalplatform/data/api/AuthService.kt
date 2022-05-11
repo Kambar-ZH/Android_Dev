@@ -13,9 +13,11 @@ import retrofit2.http.POST
 
 fun createAuthService(): AuthService {
     val authInterceptor = AuthInterceptor()
+
     val client = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .build()
+
     val retrofit = Retrofit.Builder()
         .baseUrl(url)
         .client(client)

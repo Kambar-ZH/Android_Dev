@@ -12,9 +12,11 @@ import retrofit2.http.Path
 
 fun createStepService(): StepService {
     val authInterceptor = AuthInterceptor()
+
     val client = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .build()
+
     val retrofit = Retrofit.Builder()
         .baseUrl(url)
         .client(client)

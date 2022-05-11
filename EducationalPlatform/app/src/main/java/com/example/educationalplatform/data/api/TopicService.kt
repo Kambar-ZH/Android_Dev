@@ -11,9 +11,11 @@ import retrofit2.http.Path
 
 fun createTopicService(): TopicService {
     val authInterceptor = AuthInterceptor()
+
     val client = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .build()
+
     val retrofit = Retrofit.Builder()
         .baseUrl(url)
         .client(client)

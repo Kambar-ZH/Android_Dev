@@ -22,7 +22,7 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
             val response = repository.getCourses()
             if (response.isSuccessful) {
                 val courseListResponse = response.body()
-                val likedCourses = MainApplication.instance.getDatabase()!!.courseLikeDao().getAll()
+                val likedCourses = MainApplication.instance.getDatabase().courseLikeDao().getAll()
                 if (courseListResponse != null) {
                     for (i in courseListResponse.indices) {
                         for (j in likedCourses.indices) {
@@ -57,7 +57,7 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
             val response = repository.likeCourse(courseId = courseId)
             if (response.isSuccessful) {
                 likedCourse.value = response.body()
-                MainApplication.instance.getDatabase()!!.courseLikeDao()
+                MainApplication.instance.getDatabase().courseLikeDao()
                     .insert(
                         CourseLike(
                             courseId = courseId,

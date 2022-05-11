@@ -14,9 +14,11 @@ const val url = "http://10.0.2.2:8000/api/v1/"
 
 fun createCourseService(): CourseService {
     val authInterceptor = AuthInterceptor()
+
     val client = OkHttpClient.Builder()
         .addInterceptor(authInterceptor)
         .build()
+
     val retrofit = Retrofit.Builder()
         .baseUrl(url)
         .client(client)
