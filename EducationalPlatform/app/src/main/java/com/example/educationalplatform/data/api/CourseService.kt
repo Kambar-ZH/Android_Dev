@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-const val url = "http://10.0.2.2:8000/api/v1/"
+const val BASE_URL = "http://10.0.2.2:8000/api/v1/"
 
 fun createCourseService(): CourseService {
     val authInterceptor = AuthInterceptor()
@@ -20,7 +20,7 @@ fun createCourseService(): CourseService {
         .build()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl(url)
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

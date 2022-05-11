@@ -17,7 +17,7 @@ fun createTopicService(): TopicService {
         .build()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl(url)
+        .baseUrl(BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
