@@ -12,7 +12,4 @@ interface CourseLikeDao {
 
     @Insert()
     fun insert(courseLike: CourseLike): Long
-
-    @Query("DELETE FROM courselike WHERE courseId = :courseId")
-    fun deleteByCourseId(courseId: Long)
 }

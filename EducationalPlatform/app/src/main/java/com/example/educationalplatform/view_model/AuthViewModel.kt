@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.educationalplatform.data.api.model.AuthToken
 import com.example.educationalplatform.data.api.model.Credentials
 import com.example.educationalplatform.data.api.model.UserForm
-import com.example.educationalplatform.globals.AppPreferences
+import com.example.educationalplatform.globals.MainApplication
 import com.example.educationalplatform.respository.AuthRepository
 import kotlinx.coroutines.launch
 
@@ -32,8 +32,9 @@ class AuthViewModel(private val repository: AuthRepository): ViewModel() {
             if (response.isSuccessful) {
                 val authToken = response.body()
                 if (authToken != null) {
-                    AppPreferences.accessToken = authToken.access
-                    AppPreferences.refreshToken = authToken.refresh
+                    MainApplication.instance.appPreferences.accessToken = authToken.access
+                    MainApplication.instance.appPreferences.refreshToken = authToken.refresh
+                    MainApplication.instance.appPreferences.userName = credentials.username
                 }
                 loginResponse.value = response.body()
             } else {

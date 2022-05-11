@@ -12,17 +12,15 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class TopicViewModel(
-    private val topicRepository: TopicRepository,
-    private val courseRepository: CourseRepository
+    private val repository: TopicRepository,
 ) : ViewModel() {
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val topicList: MutableLiveData<List<Topic>> = MutableLiveData()
     val selectedTopic: MutableLiveData<Topic> = MutableLiveData()
-    val likedCourse: MutableLiveData<Void> = MutableLiveData()
 
     fun loadTopicList() {
         viewModelScope.launch {
-            val response = topicRepository.getTopics()
+            val response = repository.getTopics()
             if (response.isSuccessful) {
                 topicList.value = response.body()
             } else {
@@ -33,7 +31,7 @@ class TopicViewModel(
 
     fun loadSelectedTopic(topicId: Int) {
         viewModelScope.launch {
-            val response = topicRepository.getTopicById(topicId = topicId)
+            val response = repository.getTopicById(topicId = topicId)
             if (response.isSuccessful) {
                 selectedTopic.value = response.body()
             } else {
@@ -44,21 +42,9 @@ class TopicViewModel(
 
     fun loadTopicListByCourse(courseId: Int) {
         viewModelScope.launch {
-            val response = topicRepository.getTopicByCourseId(courseId = courseId)
+            val response = repository.getTopicByCourseId(courseId = courseId)
             if (response.isSuccessful) {
                 topicList.value = response.body()
-            } else {
-                errorMessage.value = response.message()
-            }
-        }
-    }
-
-    fun likeCourse(courseId: Int) {
-        viewModelScope.launch {
-            val response = courseRepository.likeCourse(courseId = courseId)
-            if (response.isSuccessful) {
-                likedCourse.value = response.body()
-                MainApplication.instance.getDatabase()!!.courseLikeDao().insert(CourseLike(courseId))
             } else {
                 errorMessage.value = response.message()
             }

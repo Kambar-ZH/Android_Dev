@@ -8,21 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import coil.load
-import com.example.educationalplatform.data.api.StepService
-import com.example.educationalplatform.data.api.createStepService
 import com.example.educationalplatform.databinding.FragmentStepBinding
-import com.example.educationalplatform.respository.StepRepository
 import com.example.educationalplatform.view_model.StepViewModel
-import com.example.educationalplatform.view_model.StepViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StepFragment : Fragment() {
 
     private var stepId = 0
 
     private lateinit var binding: FragmentStepBinding
-    private lateinit var viewModel: StepViewModel
+    private val viewModel: StepViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -30,8 +26,6 @@ class StepFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentStepBinding.inflate(inflater, container, false)
-
-        configureViewModel()
 
         stepId = arguments?.getInt(TopicFragment.stepIdKey)!!
 
@@ -65,12 +59,5 @@ class StepFragment : Fragment() {
             binding.videoPreviewImageView.visibility = View.GONE
             binding.videoView.visibility = View.VISIBLE
         }
-    }
-
-    private fun configureViewModel() {
-        val service = createStepService()
-        val repository = StepRepository(service)
-        val viewModelFactory = StepViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[StepViewModel::class.java]
     }
 }

@@ -7,18 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.educationalplatform.R
 import com.example.educationalplatform.adapter.CourseAdapter
 import com.example.educationalplatform.adapter.CourseSelectListener
-import com.example.educationalplatform.data.api.createCourseService
 import com.example.educationalplatform.databinding.FragmentCourseBinding
 import com.example.educationalplatform.data.api.model.Course
-import com.example.educationalplatform.respository.CourseRepository
 import com.example.educationalplatform.view_model.CourseViewModel
-import com.example.educationalplatform.view_model.CourseViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CourseFragment : Fragment(), CourseSelectListener {
     companion object {
@@ -27,7 +24,7 @@ class CourseFragment : Fragment(), CourseSelectListener {
 
     private lateinit var binding: FragmentCourseBinding
     private lateinit var adapter: CourseAdapter
-    private lateinit var viewModel: CourseViewModel
+    private val viewModel: CourseViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +33,6 @@ class CourseFragment : Fragment(), CourseSelectListener {
         binding = FragmentCourseBinding.inflate(inflater, container, false)
 
         configureAdapter()
-
-        configureViewModel()
 
         viewModel.loadCourseList()
 
@@ -60,13 +55,6 @@ class CourseFragment : Fragment(), CourseSelectListener {
         binding.recyclerView.layoutManager = layoutManager
         adapter = CourseAdapter(this)
         binding.recyclerView.adapter = adapter
-    }
-
-    private fun configureViewModel() {
-        val service = createCourseService()
-        val repository = CourseRepository(service)
-        val viewModelFactory = CourseViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[CourseViewModel::class.java]
     }
 
     override fun getCourse(course: Course) {

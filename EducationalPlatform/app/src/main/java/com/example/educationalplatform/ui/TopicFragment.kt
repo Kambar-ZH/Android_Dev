@@ -7,23 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.educationalplatform.R
 import com.example.educationalplatform.adapter.StepSelectListener
 import com.example.educationalplatform.adapter.TopicAdapter
-import com.example.educationalplatform.data.api.TopicService
-import com.example.educationalplatform.data.api.createCourseService
-import com.example.educationalplatform.data.api.createTopicService
 import com.example.educationalplatform.databinding.FragmentTopicBinding
 import com.example.educationalplatform.data.api.model.Step
-import com.example.educationalplatform.data.db.AppDatabase
-import com.example.educationalplatform.respository.CourseRepository
-import com.example.educationalplatform.respository.TopicRepository
+import com.example.educationalplatform.view_model.CourseViewModel
 import com.example.educationalplatform.view_model.TopicViewModel
-import com.example.educationalplatform.view_model.TopicViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TopicFragment : Fragment(), StepSelectListener {
     companion object {
@@ -32,9 +25,11 @@ class TopicFragment : Fragment(), StepSelectListener {
 
     private var courseId = 0
 
+    private val topicViewModel: TopicViewModel by viewModel()
+    private val courseViewModel: CourseViewModel by viewModel()
+
     private lateinit var binding: FragmentTopicBinding
     private lateinit var adapter: TopicAdapter
-    private lateinit var viewModel: TopicViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,13 +39,11 @@ class TopicFragment : Fragment(), StepSelectListener {
 
         configureAdapter()
 
-        configureViewModel()
-
         courseId = arguments?.getInt(CourseFragment.courseIdKey)!!
 
-        viewModel.loadTopicListByCourse(courseId)
+        topicViewModel.loadTopicListByCourse(courseId)
 
-        viewModel.topicList.observe(viewLifecycleOwner) { topicList ->
+        topicViewModel.topicList.observe(viewLifecycleOwner) { topicList ->
             binding.recyclerView.visibility = View.VISIBLE
             binding.likeButton.visibility = View.VISIBLE
             binding.emptyTextView.visibility = View.GONE
@@ -58,16 +51,16 @@ class TopicFragment : Fragment(), StepSelectListener {
             adapter.submitList(topicList)
         }
 
-        viewModel.likedCourse.observe(viewLifecycleOwner) {
+        courseViewModel.likedCourse.observe(viewLifecycleOwner) {
             Toast.makeText(context, "Thanks for support!", Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+        topicViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
 
         binding.likeButton.setOnClickListener {
-            viewModel.likeCourse(courseId)
+            courseViewModel.likeCourse(courseId)
         }
 
         return binding.root
@@ -80,12 +73,6 @@ class TopicFragment : Fragment(), StepSelectListener {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun configureViewModel() {
-        val topicRepository = TopicRepository(service = createTopicService())
-        val courseRepository = CourseRepository(service = createCourseService())
-        val viewModelFactory = TopicViewModelFactory(topicRepository = topicRepository, courseRepository = courseRepository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[TopicViewModel::class.java]
-    }
 
     override fun getStep(step: Step) {
         val bundle = bundleOf(stepIdKey to step.id)

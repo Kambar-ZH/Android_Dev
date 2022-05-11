@@ -10,7 +10,7 @@ import com.example.educationalplatform.data.db.model.CourseLike
 
 @Database(
     entities = [CourseLike::class],
-    version = 1,
+    version = 2,
 )
 abstract class AppDatabase: RoomDatabase() {
     abstract fun courseLikeDao(): CourseLikeDao

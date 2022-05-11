@@ -1,5 +1,6 @@
 package com.example.educationalplatform.view_model
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,7 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val courseList: MutableLiveData<List<Course>> = MutableLiveData()
     val selectedCourse: MutableLiveData<Course> = MutableLiveData()
+    val likedCourse: MutableLiveData<Void> = MutableLiveData()
 
     fun loadCourseList() {
         viewModelScope.launch {
@@ -23,8 +25,11 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
                 val likedCourses = MainApplication.instance.getDatabase()!!.courseLikeDao().getAll()
                 if (courseListResponse != null) {
                     for (i in courseListResponse.indices) {
-                        if (likedCourses.indexOf(CourseLike(courseListResponse[i].id)) != -1) {
-                            courseListResponse[i].isLiked = true
+                        for (j in likedCourses.indices) {
+                            if (likedCourses[j].courseId == courseListResponse[i].id &&
+                                likedCourses[j].userName == MainApplication.instance.appPreferences.userName) {
+                                courseListResponse[i].isLiked = true
+                            }
                         }
                     }
                 }
@@ -40,6 +45,24 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
             val response = repository.getCourseById(courseId = courseId)
             if (response.isSuccessful) {
                 selectedCourse.value = response.body()
+            } else {
+                errorMessage.value = response.message()
+            }
+        }
+    }
+
+    fun likeCourse(courseId: Int) {
+        viewModelScope.launch {
+            val response = repository.likeCourse(courseId = courseId)
+            if (response.isSuccessful) {
+                likedCourse.value = response.body()
+                MainApplication.instance.getDatabase()!!.courseLikeDao()
+                    .insert(
+                        CourseLike(
+                            courseId = courseId,
+                            userName = MainApplication.instance.appPreferences.userName!!
+                        )
+                    )
             } else {
                 errorMessage.value = response.message()
             }
