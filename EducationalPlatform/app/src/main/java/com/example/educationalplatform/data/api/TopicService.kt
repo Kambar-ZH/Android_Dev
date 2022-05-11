@@ -26,12 +26,6 @@ fun createTopicService(): TopicService {
 }
 
 interface TopicService {
-    @GET("topics/")
-    suspend fun getTopics(): Response<List<Topic>>
-
-    @GET("topics/{topic_id}/")
-    suspend fun getTopicById(@Path("topic_id") topicId: Int): Response<Topic>
-
     @GET("courses/{course_id}/topics/")
     suspend fun getTopicsByCourseId(@Path("course_id") courseId: Int): Response<List<Topic>>
 }

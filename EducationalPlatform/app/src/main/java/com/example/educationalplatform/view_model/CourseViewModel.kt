@@ -1,6 +1,5 @@
 package com.example.educationalplatform.view_model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,12 +8,10 @@ import com.example.educationalplatform.data.db.model.CourseLike
 import com.example.educationalplatform.globals.MainApplication
 import com.example.educationalplatform.respository.CourseRepository
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val courseList: MutableLiveData<List<Course>> = MutableLiveData()
-    val selectedCourse: MutableLiveData<Course> = MutableLiveData()
     val likedCourse: MutableLiveData<Void> = MutableLiveData()
 
     fun loadCourseList() {
@@ -35,17 +32,6 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
                     }
                 }
                 courseList.value = courseListResponse
-            } else {
-                errorMessage.value = response.message()
-            }
-        }
-    }
-
-    fun loadSelectedCourse(courseId: Int) {
-        viewModelScope.launch {
-            val response = repository.getCourseById(courseId = courseId)
-            if (response.isSuccessful) {
-                selectedCourse.value = response.body()
             } else {
                 errorMessage.value = response.message()
             }

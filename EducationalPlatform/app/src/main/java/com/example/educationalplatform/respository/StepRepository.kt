@@ -5,10 +5,6 @@ import com.example.educationalplatform.data.api.model.Step
 import retrofit2.Response
 
 class StepRepository(private val service: StepService) {
-    suspend fun getSteps(): Response<List<Step>> {
-        return service.getSteps()
-    }
-
     suspend fun getStepById(stepId: Int): Response<Step> {
         return service.getStepById(stepId = stepId)
     }

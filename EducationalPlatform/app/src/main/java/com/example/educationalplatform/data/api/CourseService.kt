@@ -32,9 +32,6 @@ interface CourseService {
     @GET("courses/")
     suspend fun getCourses(): Response<List<Course>>
 
-    @GET("courses/{course_id}/")
-    suspend fun getCourseById(@Path("course_id") courseId: Int): Response<Course>
-
     @POST("courses/{course_id}/like/")
     suspend fun likeCourse(@Path("course_id") courseId: Int): Response<Void>
 }

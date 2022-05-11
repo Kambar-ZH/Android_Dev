@@ -2,7 +2,6 @@ package com.example.educationalplatform.data.api
 
 import com.example.educationalplatform.interceptors.AuthInterceptor
 import com.example.educationalplatform.data.api.model.Step
-import com.example.educationalplatform.data.db.AppDatabase
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -27,9 +26,6 @@ fun createStepService(): StepService {
 }
 
 interface StepService {
-    @GET("steps/")
-    suspend fun getSteps(): Response<List<Step>>
-
     @GET("steps/{step_id}/")
     suspend fun getStepById(@Path("step_id") stepId: Int): Response<Step>
 }

@@ -9,10 +9,6 @@ class CourseRepository(private val service: CourseService) {
         return service.getCourses()
     }
 
-    suspend fun getCourseById(courseId: Int): Response<Course> {
-        return service.getCourseById(courseId = courseId)
-    }
-
     suspend fun likeCourse(courseId: Int): Response<Void> {
         return service.likeCourse(courseId = courseId)
     }
