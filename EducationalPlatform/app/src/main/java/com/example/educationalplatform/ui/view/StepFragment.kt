@@ -1,4 +1,4 @@
-package com.example.educationalplatform.ui
+package com.example.educationalplatform.ui.view
 
 import android.net.Uri
 import android.os.Bundle
@@ -24,7 +24,7 @@ class StepFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStepBinding.inflate(inflater, container, false)
 
         stepId = arguments?.getInt(TopicFragment.stepIdKey)!!
@@ -36,6 +36,7 @@ class StepFragment : Fragment() {
             configurePreviewImage(step.video.previewUrl)
             configureVideoView(step.video.videoUrl)
             binding.videoTitle.text = step.video.title
+            binding.uploaded.text = step.video.uploaded
             binding.videoViews.text = step.video.views.toString()
         }
 
@@ -57,6 +58,7 @@ class StepFragment : Fragment() {
         binding.videoPreviewImageView.load(previewUrl)
         binding.videoPreviewImageView.setOnClickListener {
             binding.videoPreviewImageView.visibility = View.GONE
+            binding.playButton.visibility = View.GONE
             binding.videoView.visibility = View.VISIBLE
         }
     }

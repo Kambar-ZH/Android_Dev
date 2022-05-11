@@ -1,4 +1,4 @@
-package com.example.educationalplatform.ui
+package com.example.educationalplatform.ui.view
 
 import com.example.educationalplatform.data.api.model.Credentials
 import android.os.Bundle
@@ -21,7 +21,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         viewModel.loginResponse.observe(viewLifecycleOwner) {
@@ -38,7 +38,6 @@ class LoginFragment : Fragment() {
 
         binding.loginButton.setOnClickListener {
             val credentials = getCredentials()
-            Log.e(LoginFragment::class.java.simpleName, "${credentials.username}, ${credentials.password}")
             viewModel.login(credentials)
         }
 

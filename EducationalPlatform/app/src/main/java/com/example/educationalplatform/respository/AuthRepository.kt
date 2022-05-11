@@ -6,10 +6,10 @@ import retrofit2.Response
 
 class AuthRepository(private val service: AuthService) {
     suspend fun signup(userForm: UserForm): Response<Void> {
-        return service.signup(userForm=userForm)
+        return service.signup(userForm = userForm)
     }
 
     suspend fun login(credentials: Credentials): Response<AuthToken> {
-        return service.login(credentials=credentials)
+        return service.login(credentials = credentials)
     }
 }

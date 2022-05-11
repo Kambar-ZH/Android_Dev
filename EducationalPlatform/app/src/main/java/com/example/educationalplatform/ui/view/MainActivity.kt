@@ -1,4 +1,4 @@
-package com.example.educationalplatform.ui
+package com.example.educationalplatform.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.educationalplatform.ui
+package com.example.educationalplatform.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.educationalplatform.R
-import com.example.educationalplatform.adapter.CourseAdapter
-import com.example.educationalplatform.adapter.CourseSelectListener
+import com.example.educationalplatform.ui.adapter.CourseAdapter
+import com.example.educationalplatform.ui.adapter.CourseSelectListener
 import com.example.educationalplatform.databinding.FragmentCourseBinding
 import com.example.educationalplatform.data.api.model.Course
 import com.example.educationalplatform.view_model.CourseViewModel
@@ -29,7 +29,7 @@ class CourseFragment : Fragment(), CourseSelectListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCourseBinding.inflate(inflater, container, false)
 
         configureAdapter()
@@ -61,5 +61,4 @@ class CourseFragment : Fragment(), CourseSelectListener {
         val bundle = bundleOf(courseIdKey to course.id)
         findNavController().navigate(R.id.action_courseFragment_to_topicFragment, bundle)
     }
-
 }

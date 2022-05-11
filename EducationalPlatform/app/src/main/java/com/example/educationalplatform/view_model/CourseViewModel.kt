@@ -27,7 +27,8 @@ class CourseViewModel(private val repository: CourseRepository) : ViewModel() {
                     for (i in courseListResponse.indices) {
                         for (j in likedCourses.indices) {
                             if (likedCourses[j].courseId == courseListResponse[i].id &&
-                                likedCourses[j].userName == MainApplication.instance.appPreferences.userName) {
+                                likedCourses[j].userName == MainApplication.instance.appPreferences.userName
+                            ) {
                                 courseListResponse[i].isLiked = true
                             }
                         }

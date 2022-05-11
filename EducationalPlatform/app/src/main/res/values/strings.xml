@@ -31,4 +31,8 @@
     <string name="description_with_colon">Description:</string>
     <string name="course_content_with_colon">Course content:</string>
     <string name="like_course">Like Course</string>
+    <string name="registration_completed">Registration completed! Now please login.</string>
+    <string name="thanks_for_support">Thanks for support!</string>
+    <string name="uploaded_time">13-03-2022</string>
+    <string name="uploaded">Uploaded:</string>
 </resources>

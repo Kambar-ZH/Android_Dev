@@ -1,18 +1,16 @@
-package com.example.educationalplatform.adapter
+package com.example.educationalplatform.ui.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.educationalplatform.R
 import com.example.educationalplatform.data.api.model.Course
 import com.example.educationalplatform.globals.Constants
-import kotlin.coroutines.coroutineContext
 
 class CourseAdapter(private val selectListener: CourseSelectListener) :
     ListAdapter<Course, CourseAdapter.ViewHolder>(DIFF_CONFIG) {
@@ -32,7 +30,8 @@ class CourseAdapter(private val selectListener: CourseSelectListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.course_layout, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.course_layout, parent, false)
         return ViewHolder(view)
     }
 

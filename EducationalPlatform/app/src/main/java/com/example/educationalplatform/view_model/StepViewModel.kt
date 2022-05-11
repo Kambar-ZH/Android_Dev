@@ -8,7 +8,7 @@ import com.example.educationalplatform.respository.StepRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class StepViewModel(private val repository: StepRepository): ViewModel() {
+class StepViewModel(private val repository: StepRepository) : ViewModel() {
     val errorMessage: MutableLiveData<String> = MutableLiveData()
     val stepList: MutableLiveData<List<Step>> = MutableLiveData()
     val selectedStep: MutableLiveData<Step> = MutableLiveData()

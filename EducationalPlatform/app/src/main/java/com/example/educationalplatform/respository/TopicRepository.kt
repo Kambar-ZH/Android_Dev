@@ -13,7 +13,7 @@ class TopicRepository(private val service: TopicService) {
         return service.getTopicById(topicId = topicId)
     }
 
-    suspend fun getTopicByCourseId(courseId: Int): Response<List<Topic> > {
+    suspend fun getTopicByCourseId(courseId: Int): Response<List<Topic>> {
         return service.getTopicsByCourseId(courseId = courseId)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.educationalplatform.adapter
+package com.example.educationalplatform.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -47,7 +47,8 @@ class TopicAdapter(private val selectListener: StepSelectListener) :
             itemId.text = topic.id.toString()
             itemTitle.text = topic.title
 
-            itemSteps.layoutManager = LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            itemSteps.layoutManager =
+                LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
             val adapter = StepAdapter(selectListener)
             itemSteps.adapter = adapter
             adapter.submitList(topic.steps)

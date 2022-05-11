@@ -13,5 +13,8 @@ import com.example.educationalplatform.data.db.model.CourseLike
     version = 2,
 )
 abstract class AppDatabase: RoomDatabase() {
+    companion object {
+        val databaseName = "edu_db"
+    }
     abstract fun courseLikeDao(): CourseLikeDao
 }

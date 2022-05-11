@@ -1,4 +1,4 @@
-package com.example.educationalplatform.ui
+package com.example.educationalplatform.ui.view
 
 import android.os.Bundle
 import android.util.Log
@@ -21,11 +21,12 @@ class SignupFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSignupBinding.inflate(inflater, container, false)
 
         viewModel.signupResponse.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "Registration completed! Now please login.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.registration_completed), Toast.LENGTH_SHORT)
+                .show()
             findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
 
@@ -35,7 +36,6 @@ class SignupFragment : Fragment() {
 
         binding.signupButton.setOnClickListener {
             val userForm = getUserForm()
-            Log.e(SignupFragment::class.java.simpleName, "${userForm.username}, ${userForm.email}, ${userForm.password1}, ${userForm.password2}")
             viewModel.signup(userForm)
         }
         return binding.root

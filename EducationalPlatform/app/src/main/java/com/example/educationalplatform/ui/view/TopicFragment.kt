@@ -1,4 +1,4 @@
-package com.example.educationalplatform.ui
+package com.example.educationalplatform.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.educationalplatform.R
-import com.example.educationalplatform.adapter.StepSelectListener
-import com.example.educationalplatform.adapter.TopicAdapter
+import com.example.educationalplatform.ui.adapter.StepSelectListener
+import com.example.educationalplatform.ui.adapter.TopicAdapter
 import com.example.educationalplatform.databinding.FragmentTopicBinding
 import com.example.educationalplatform.data.api.model.Step
 import com.example.educationalplatform.view_model.CourseViewModel
@@ -34,7 +34,7 @@ class TopicFragment : Fragment(), StepSelectListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTopicBinding.inflate(inflater, container, false)
 
         configureAdapter()
@@ -52,7 +52,8 @@ class TopicFragment : Fragment(), StepSelectListener {
         }
 
         courseViewModel.likedCourse.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "Thanks for support!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.thanks_for_support), Toast.LENGTH_SHORT)
+                .show()
         }
 
         topicViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
@@ -72,7 +73,6 @@ class TopicFragment : Fragment(), StepSelectListener {
         adapter = TopicAdapter(this)
         binding.recyclerView.adapter = adapter
     }
-
 
     override fun getStep(step: Step) {
         val bundle = bundleOf(stepIdKey to step.id)
